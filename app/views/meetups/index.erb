@@ -1,0 +1,15 @@
+<h1>Meetups</h1>
+<dl>
+  <% @events.each do |event| %>
+  <dt>
+    <a href="/meetups/meetup/<%= event.id %>"><%= event.name %></a>
+  </dt>
+  <dd>
+    <%= event.description %>
+  </dd>
+  </br>
+  <% end %>
+</dl>
+<br>
+
+<a href="/meetups/new">New</a>

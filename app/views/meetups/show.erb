@@ -1,0 +1,61 @@
+<h1>Event Name: <%= @event.name.capitalize %></h1>
+
+ <% if current_user == @creator %>
+<div class="classy">
+
+  <form action="/meetups/meetup/<%= @event.id %>/edit" method="get">
+    <input type="submit" value="Edit">
+  </form>
+
+  <form action="/meetups/meetup/<%= @event.id%>" method="post">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="submit" value="Delete">
+  </form>
+
+  </div>
+
+ <% end %>
+
+<ul>
+  <li>
+     Description: <%= @event.description.capitalize %>
+  </li>
+  <li>
+     Location: <%= @event.location.capitalize %>
+  </li>
+  <li>
+     Creator: <%= @creator.username %>
+  </li>
+</ul>
+
+<a href="/meetups">Home</a>
+</br>
+<br>
+<a href="/meetups/new">New</a>
+
+<% if !@members.include?(current_user) %>
+  <form action="/meetups/join/<%= @event.id %>" method="post">
+    <input type="submit" value="Join">
+  </form>
+<% elsif @members.include?(current_user) && current_user != @creator %>
+<form action="/meetups/leave/<%= @event.id %>" method="post">
+  <input type="submit" value="Leave">
+</form>
+<% end %>
+
+ <% if @error_message %>
+ <p>
+    <%= "You need to be signed in in order to #{@error} a meetup!"%>
+ </p>
+ <% end %>
+
+<h2>Attending:</h2>
+<ul>
+  <% @members.each do |member| %>
+    <% if member == @creator %>
+      <li> <%= member.username %> (Creator)</li>
+    <% else %>
+      <li> <%= member.username %> </li>
+    <% end %>
+  <% end %>
+</ul>

@@ -1,0 +1,32 @@
+<h1>Add a new Event!</h1>
+
+
+<% if @error_message %>
+<p>
+You need to be signed in in order to create an event.
+</p>
+ <% end %>
+
+
+<fieldset>
+<form action="/meetups/new" method="post">
+
+  <label for="name">Name: </label>
+  <input type="text" name="name" id="name" value="<%= @name%>" required>
+
+  <label for="description">Description: </label>
+  <input type="text" name="description" id="description" value="<%= @description%>"required>
+
+  <label for="location">Location: </label>
+  <input type="text" name="location" id="location" required value="<%= @location%>">
+
+
+  <input type="submit" value="Submit">
+
+</form>
+</fieldset>
+
+<a href="/meetups">Home</a>
+</br>
+<br>
+<a href="/meetups/new">New</a>
